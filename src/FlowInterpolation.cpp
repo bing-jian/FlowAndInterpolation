@@ -12,7 +12,7 @@ std::ostream& operator<<(std::ostream& os, const std::vector<int>& input) {
 
 void FlowInterpolation::killMaxLimits(std::vector<int>& holes, DImage& vx,
                                       DImage& vy) {
-  for (int i = 0; i != holes.size(); ++i) {
+  for (unsigned int i = 0; i < holes.size(); ++i) {
     vx[i] = 0.0;
     vy[i] = 0.0;
   }
