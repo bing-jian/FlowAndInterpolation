@@ -2221,35 +2221,34 @@ void Image<T>::OutputToMatlab(mxArray*& matrix) const {
   nDims = (nChannels == 1) ? 2 : 3;
   switch (typeid(T)) {
     case typeid(unsigned char):
-        matrix = mxCreateNumericArray(nDims, dims, mxUINT8_CLASS, mxREAL);
-        break;
+      matrix = mxCreateNumericArray(nDims, dims, mxUINT8_CLASS, mxREAL);
+      break;
     case typeid(char):
-        matrix = mxCreateNumericArray(nDims, dims, mxINT8_CLASS, mxREAL);
-        break;
+      matrix = mxCreateNumericArray(nDims, dims, mxINT8_CLASS, mxREAL);
+      break;
     case typeid(short int):
-        matrix = mxCreateNumericArray(nDims, dims, mxINT16_CLASS, mxREAL);
-        break;
+      matrix = mxCreateNumericArray(nDims, dims, mxINT16_CLASS, mxREAL);
+      break;
     case typeid(unsigned short int):
-        matrix = mxCreateNumericArray(nDims, dims, mxUINT16_CLASS, mxREAL);
-        break;
+      matrix = mxCreateNumericArray(nDims, dims, mxUINT16_CLASS, mxREAL);
+      break;
     case typeid(int):
-        matrix = mxCreateNumericArray(nDims, dims, mxINT32_CLASS, mxREAL);
-        break;
+      matrix = mxCreateNumericArray(nDims, dims, mxINT32_CLASS, mxREAL);
+      break;
     case typeid(unsigned int):
-        matrix = mxCreateNumericArray(nDims, dims, mxUINT32_CLASS, mxREAL);
-        break;
+      matrix = mxCreateNumericArray(nDims, dims, mxUINT32_CLASS, mxREAL);
+      break;
     case typeid(float):
-        matrix = mxCreateNumericArray(nDims, dims, mxSINGLE_CLASS, mxREAL);
-        break;
+      matrix = mxCreateNumericArray(nDims, dims, mxSINGLE_CLASS, mxREAL);
+      break;
     case typeid(double):
-        matrix = mxCreateNumericArray(nDims, dims, mxDOUBLE_CLASS, mxREAL);
-        break;
+      matrix = mxCreateNumericArray(nDims, dims, mxDOUBLE_CLASS, mxREAL);
+      break;
     default:
-        break;
+      break;
   }
 
   ConvertToMatlab<T>((T*)mxGetData(matrix));
 }
 
 #endif
-

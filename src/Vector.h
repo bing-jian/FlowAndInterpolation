@@ -35,9 +35,7 @@ class Vector {
   const T* data() const { return (const T*)pData; };
   T* data() { return pData; };
   int dim() const { return nDim; };
-  inline bool matchDimension(int _ndim) const {
-    return (nDim == _ndim);
-  }
+  inline bool matchDimension(int _ndim) const { return (nDim == _ndim); }
   inline bool matchDimension(const Vector<T>& vect) const {
     return matchDimension(vect.nDim);
   }
@@ -60,7 +58,7 @@ class Vector {
   friend double innerproduct(const Vector<T>& vect1, const Vector<T>& vect2) {
     double result = 0;
     for (int i = 0; i < vect1.dim(); i++) {
-        result += vect1[i] * vect2[i];
+      result += vect1[i] * vect2[i];
     }
     return result;
   }
@@ -80,13 +78,13 @@ class Vector {
     myfile.read((char*)pData, sizeof(T) * nDim);
     return true;
   }
-  T mean(int N=-1) const {
+  T mean(int N = -1) const {
     if (N == -1) {
-        N = nDim;
+      N = nDim;
     }
     T result = 0;
     for (int i = 0; i < N; ++i) {
-        result += pData[i];
+      result += pData[i];
     }
     return result / N;
   }

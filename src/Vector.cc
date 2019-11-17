@@ -94,7 +94,7 @@ double Vector<T>::norm2() const {
 template <class T>
 void Vector<T>::printVector() {
   for (int i = 0; i < nDim; i++) {
-      std::cout << pData[i] << ' ';
+    std::cout << pData[i] << ' ';
   }
   std::cout << std::endl;
 }

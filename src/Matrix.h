@@ -92,9 +92,9 @@ class Matrix {
   Matrix& operator*=(const Matrix<T>& matrix);
   Matrix& operator/=(const Matrix<T>& matrix);
 
-  friend Vector<T> operator*<> (const Matrix<T>& matrix, const Vector<T>& vect);
-  friend Matrix<T> operator*<> (const Matrix<T>& matrix1,
-                             const Matrix<T>& matrix2);
+  friend Vector<T> operator*<>(const Matrix<T>& matrix, const Vector<T>& vect);
+  friend Matrix<T> operator*<>(const Matrix<T>& matrix1,
+                               const Matrix<T>& matrix2);
 
   // solve linear systems
   void SolveLinearSystem(Vector<T>& result, const Vector<T>& b) const;
