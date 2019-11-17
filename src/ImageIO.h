@@ -10,27 +10,30 @@
 // #include "opencv2/core/core.hpp"
 // #include "opencv2/highgui/highgui.hpp"
 
-class ImageIO
-{
-public:
-    enum ImageType{standard, derivative, normalized};
-    ImageIO(void);
-    ~ImageIO(void);
-public:
-    template <class T>
-    static bool loadImage(const char* filename,T*& pImagePlane,int& width,int& height, int& nchannels);
-    template <class T>
-    static bool saveImage(const char* filename,const T* pImagePlane,int width,int height, int nchannels,ImageType imtype = standard);
+class ImageIO {
+ public:
+  enum ImageType { standard, derivative, normalized };
+  ImageIO(void);
+  ~ImageIO(void);
 
+ public:
+  template <class T>
+  static bool loadImage(const char* filename, T*& pImagePlane, int& width,
+                        int& height, int& nchannels);
+  template <class T>
+  static bool saveImage(const char* filename, const T* pImagePlane, int width,
+                        int height, int nchannels, ImageType imtype = standard);
 };
 
 // template <class T>
-// bool ImageIO::loadImage(const char *filename, T *&pImagePlane, int &width, int &height, int &nchannels)
+// bool ImageIO::loadImage(const char *filename, T *&pImagePlane, int &width,
+// int &height, int &nchannels)
 // {
 //  cv::Mat im = cv::imread(filename);
 //  if(im.data == NULL) // if allocation fails
 //      return false;
-//  if(im.type()!= CV_8UC1 && im.type()!=CV_8UC3 && im.type()!=CV_8UC4) // we only support three types of image information for now
+//  if(im.type()!= CV_8UC1 && im.type()!=CV_8UC3 && im.type()!=CV_8UC4) // we
+//  only support three types of image information for now
 //      return false;
 //  width = im.size().width;
 //  height = im.size().height;
@@ -46,7 +49,8 @@ public:
 //
 //  // check whether the type is float point
 //  bool IsFloat=false;
-//  if(typeid(T)==typeid(double) || typeid(T)==typeid(float) || typeid(T)==typeid(long double))
+//  if(typeid(T)==typeid(double) || typeid(T)==typeid(float) ||
+//  typeid(T)==typeid(long double))
 //      IsFloat=true;
 //
 //  for(int i =0;i<height;i++)
@@ -65,7 +69,8 @@ public:
 // }
 
 // template <class T>
-// bool ImageIO::saveImage(const char* filename,const T* pImagePlane,int width,int height, int nchannels,ImageType imtype)
+// bool ImageIO::saveImage(const char* filename,const T* pImagePlane,int
+// width,int height, int nchannels,ImageType imtype)
 // {
 //  cv::Mat im;
 //  switch(nchannels){
@@ -80,7 +85,8 @@ public:
 //  }
 //  // check whether the type is float point
 //  bool IsFloat=false;
-//  if(typeid(T)==typeid(double) || typeid(T)==typeid(float) || typeid(T)==typeid(long double))
+//  if(typeid(T)==typeid(double) || typeid(T)==typeid(float) ||
+//  typeid(T)==typeid(long double))
 //      IsFloat=true;
 //
 //  T Max,Min;
@@ -126,17 +132,21 @@ public:
 //                      if(IsFloat)
 //                          im.data[offset2+j] = pImagePlane[offset1+j]*255;
 //                      else
-//                          im.data[offset2+j] = __max(__min(pImagePlane[offset1+j],255),0);
+//                          im.data[offset2+j] =
+//                          __max(__min(pImagePlane[offset1+j],255),0);
 //                      break;
 //                  case derivative:
 //
 //                      if(IsFloat)
-//                          im.data[offset2+j] = (double)(pImagePlane[offset1+j]/Max+0.5)*255;
+//                          im.data[offset2+j] =
+//                          (double)(pImagePlane[offset1+j]/Max+0.5)*255;
 //                      else
-//                          im.data[offset2+j] = ((double)pImagePlane[offset1+j]/Max+0.5)*255;
+//                          im.data[offset2+j] =
+//                          ((double)pImagePlane[offset1+j]/Max+0.5)*255;
 //                      break;
 //                  case normalized:
-//                      im.data[offset2+j] = (double)(pImagePlane[offset1+j]-Min)/(Max-Min)*255;
+//                      im.data[offset2+j] =
+//                      (double)(pImagePlane[offset1+j]-Min)/(Max-Min)*255;
 //                      break;
 //              }
 //          }
@@ -145,12 +155,10 @@ public:
 //  return cv::imwrite(filename,im);
 // }
 
-
-
 /*
-#include <QVector>
 #include <QImage>
 #include <QString>
+#include <QVector>
 #include "math.h"
 //-----------------------------------------------------------------------------------------
 // this class is a wrapper to use QImage to load image into image planes
@@ -164,23 +172,29 @@ public:
     ~ImageIO(void);
 public:
     template <class T>
-    static void loadImage(const QImage& image,T*& pImagePlane,int& width,int& height,int& nchannels);
+    static void loadImage(const QImage& image,T*& pImagePlane,int& width,int&
+height,int& nchannels);
     template <class T>
-    static bool loadImage(const QString& filename,T*& pImagePlane,int& width,int& height,int& nchannels);
+    static bool loadImage(const QString& filename,T*& pImagePlane,int&
+width,int& height,int& nchannels);
 
     template <class T>
-    static unsigned char convertPixel(const T& value,bool IsFloat,ImageType type,T& _Max,T& _Min);
+    static unsigned char convertPixel(const T& value,bool IsFloat,ImageType
+type,T& _Max,T& _Min);
 
     template <class T>
-    static bool writeImage(const QString& filename, const T*& pImagePlane,int width,int height,int nchannels,ImageType type=standard,int quality=-1);
+    static bool writeImage(const QString& filename, const T*& pImagePlane,int
+width,int height,int nchannels,ImageType type=standard,int quality=-1);
 
     template <class T>
-    static bool writeImage(const QString& filename,const T* pImagePlane,int width,int height,int nchannels,T min, T max,int quality=-1);
+    static bool writeImage(const QString& filename,const T* pImagePlane,int
+width,int height,int nchannels,T min, T max,int quality=-1);
 
 };
 
 template <class T>
-void ImageIO::loadImage(const QImage& image, T*& pImagePlane,int& width,int& height,int& nchannels)
+void ImageIO::loadImage(const QImage& image, T*& pImagePlane,int& width,int&
+height,int& nchannels)
 {
     // get the image information
     width=image.width();
@@ -190,7 +204,8 @@ void ImageIO::loadImage(const QImage& image, T*& pImagePlane,int& width,int& hei
 
     // check whether the type is float point
     bool IsFloat=false;
-    if(typeid(T)==typeid(double) || typeid(T)==typeid(float) || typeid(T)==typeid(long double))
+    if(typeid(T)==typeid(double) || typeid(T)==typeid(float) ||
+typeid(T)==typeid(long double))
         IsFloat=true;
 
     const unsigned char* plinebuffer;
@@ -216,7 +231,8 @@ void ImageIO::loadImage(const QImage& image, T*& pImagePlane,int& width,int& hei
 }
 
 template <class T>
-bool ImageIO::loadImage(const QString&filename, T*& pImagePlane,int& width,int& height,int& nchannels)
+bool ImageIO::loadImage(const QString&filename, T*& pImagePlane,int& width,int&
+height,int& nchannels)
 {
     QImage image;
     if(image.load(filename)==false)
@@ -231,7 +247,8 @@ bool ImageIO::loadImage(const QString&filename, T*& pImagePlane,int& width,int& 
 }
 
 template <class T>
-bool ImageIO::writeImage(const QString& filename, const T*& pImagePlane,int width,int height,int nchannels,ImageType type,int quality)
+bool ImageIO::writeImage(const QString& filename, const T*& pImagePlane,int
+width,int height,int nchannels,ImageType type,int quality)
 {
     int nPixels=width*height,nElements;
     nElements=nPixels*nchannels;
@@ -241,7 +258,8 @@ bool ImageIO::writeImage(const QString& filename, const T*& pImagePlane,int widt
 
     // check whether the type is float point
     bool IsFloat=false;
-    if(typeid(T)==typeid(double) || typeid(T)==typeid(float) || typeid(T)==typeid(long double))
+    if(typeid(T)==typeid(double) || typeid(T)==typeid(float) ||
+typeid(T)==typeid(long double))
         IsFloat=true;
 
     T _Max=0,_Min=0;
@@ -289,7 +307,8 @@ bool ImageIO::writeImage(const QString& filename, const T*& pImagePlane,int widt
 }
 
 template <class T>
-bool ImageIO::writeImage(const QString& filename, const T* pImagePlane,int width,int height,int nchannels,T min,T max,int quality)
+bool ImageIO::writeImage(const QString& filename, const T* pImagePlane,int
+width,int height,int nchannels,T min,T max,int quality)
 {
     int nPixels=width*height,nElements;
     nElements=nPixels*nchannels;
@@ -299,7 +318,8 @@ bool ImageIO::writeImage(const QString& filename, const T* pImagePlane,int width
 
     // check whether the type is float point
     bool IsFloat=false;
-    if(typeid(T)==typeid(double) || typeid(T)==typeid(float) || typeid(T)==typeid(long double))
+    if(typeid(T)==typeid(double) || typeid(T)==typeid(float) ||
+typeid(T)==typeid(long double))
         IsFloat=true;
 
     T _Max=max,_Min=min;
@@ -325,7 +345,8 @@ bool ImageIO::writeImage(const QString& filename, const T* pImagePlane,int width
 }
 
 template <class T>
-unsigned char ImageIO::convertPixel(const T& value,bool IsFloat,ImageType type,T& _Max,T& _Min)
+unsigned char ImageIO::convertPixel(const T& value,bool IsFloat,ImageType
+type,T& _Max,T& _Min)
 {
     switch(type){
         case standard:
