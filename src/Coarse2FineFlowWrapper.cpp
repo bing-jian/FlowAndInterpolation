@@ -4,20 +4,18 @@
 // simpler.
 // Author: Deepak Pathak (c) 2016
 
-#include <limits>
 #include "Coarse2FineFlowWrapper.h"
+#include <limits>
+#include "FlowInterpolation.h"
 #include "Image.h"
 #include "OpticalFlow.h"
-#include "FlowInterpolation.h"
 using namespace std;
 
-
-void Coarse2FineFlowWrapper(double * vx, double * vy, double * warpI2,
-                              const double * Im1, const double * Im2,
-                              double alpha, double ratio, int minWidth,
-                              int nOuterFPIterations, int nInnerFPIterations,
-                              int nSORIterations, int colType,
-                              int h, int w, int c) {
+void Coarse2FineFlowWrapper(double *vx, double *vy, double *warpI2,
+                            const double *Im1, const double *Im2, double alpha,
+                            double ratio, int minWidth, int nOuterFPIterations,
+                            int nInnerFPIterations, int nSORIterations,
+                            int colType, int h, int w, int c) {
   DImage ImFormatted1, ImFormatted2;
   DImage vxFormatted, vyFormatted, warpI2Formatted;
 
@@ -31,10 +29,9 @@ void Coarse2FineFlowWrapper(double * vx, double * vy, double * warpI2,
 
   // call optical flow backend
   OpticalFlow::Coarse2FineFlow(vxFormatted, vyFormatted, warpI2Formatted,
-                                ImFormatted1, ImFormatted2,
-                                alpha, ratio, minWidth,
-                                nOuterFPIterations, nInnerFPIterations,
-                                nSORIterations);
+                               ImFormatted1, ImFormatted2, alpha, ratio,
+                               minWidth, nOuterFPIterations, nInnerFPIterations,
+                               nSORIterations);
 
   // copy formatted output to a contiguous memory to be returned
   memcpy(vx, vxFormatted.pData, h * w * sizeof(double));
@@ -51,12 +48,11 @@ void Coarse2FineFlowWrapper(double * vx, double * vy, double * warpI2,
   return;
 }
 
-
-void SplatMotionsWrapper(double *vx, double *vy,
-                         const double *vxForward, const double *vyForward,
-                         const double *vxBackward, const double *vyBackward,
-                         const double *Im1, const double *Im2,
-                         int colType, int h, int w, int c, double t) {
+void SplatMotionsWrapper(double *vx, double *vy, const double *vxForward,
+                         const double *vyForward, const double *vxBackward,
+                         const double *vyBackward, const double *Im1,
+                         const double *Im2, int colType, int h, int w, int c,
+                         double t) {
   DImage ImFormatted1, ImFormatted2;
   DImage vxForwardFormatted, vyForwardFormatted;
   DImage vxBackwardFormatted, vyBackwardFormatted;
@@ -82,14 +78,12 @@ void SplatMotionsWrapper(double *vx, double *vy,
   ImFormatted1.setColorType(colType);
   ImFormatted2.setColorType(colType);
 
-
   // call bidirection splat motions backend
-  FlowInterpolation::splatMotionsBidirect(vxFormatted, vyFormatted,
-                                     vxForwardFormatted, vyForwardFormatted,
-                                     vxBackwardFormatted, vyBackwardFormatted,
-                                     ImFormatted1, ImFormatted2, t);
-//
-//  // copy formatted output to a contiguous memory to be returned
+  FlowInterpolation::splatMotionsBidirect(
+      vxFormatted, vyFormatted, vxForwardFormatted, vyForwardFormatted,
+      vxBackwardFormatted, vyBackwardFormatted, ImFormatted1, ImFormatted2, t);
+  //
+  //  // copy formatted output to a contiguous memory to be returned
   memcpy(vx, vxFormatted.pData, h * w * sizeof(double));
   memcpy(vy, vyFormatted.pData, h * w * sizeof(double));
 
@@ -106,12 +100,10 @@ void SplatMotionsWrapper(double *vx, double *vy,
   return;
 }
 
-
-void ColorTransferWrapper(double *dest, const double *flow,
-                          const double *Im1, const double *Im2,
-                          const double *forward, const double *backward,
-                          int colType, int h, int w, int c, double t) {
-  
+void ColorTransferWrapper(double *dest, const double *flow, const double *Im1,
+                          const double *Im2, const double *forward,
+                          const double *backward, int colType, int h, int w,
+                          int c, double t) {
   DImage flowFormatted, destFormatted;
   DImage ImFormatted1, ImFormatted2;
   DImage forwardFormatted, backwardFormatted;
@@ -136,11 +128,11 @@ void ColorTransferWrapper(double *dest, const double *flow,
   ImFormatted2.setColorType(colType);
 
   // call bidirection splat motions backend
-  FlowInterpolation::colorTransfer(destFormatted, flowFormatted,
-                                   ImFormatted1, ImFormatted2,
-                                   forwardFormatted, backwardFormatted, t);
-//
-//  // copy formatted output to a contiguous memory to be returned
+  FlowInterpolation::colorTransfer(destFormatted, flowFormatted, ImFormatted1,
+                                   ImFormatted2, forwardFormatted,
+                                   backwardFormatted, t);
+  //
+  //  // copy formatted output to a contiguous memory to be returned
   memcpy(dest, destFormatted.pData, h * w * 3 * sizeof(double));
 
   // clear c memory
